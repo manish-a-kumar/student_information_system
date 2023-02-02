@@ -1,0 +1,65 @@
+<%= form_with(model: student) do |form| %>
+  <% if student.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+        <% student.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true, class:"form-control", placeholder:"Full name" %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :description %>
+      <%= form.text_area :description, class:"form-control", placeholder:"Description" %>
+    </div>
+
+    <div class="field form-group">
+      <%= form.label :grade %>
+      <%= form.select(:grade, options_for_select(['A', 'B', 'C', 'D', 'E', 'F'], :selected => form.object.grade), {:include_blank => 'Select Grade'}, class:"form-control", placeholder:"Grade", onchange: "loadRemarksBasedOnGrade()") %>
+    </div>
+  
+    <div class="field form-group">
+      <%= form.label :remarks %>
+      <%= form.text_field :remarks, class:"form-control", placeholder:"Remarks", readonly: true %>
+    </div>
+
+<br/>
+  <div class="action">
+    <%= form.submit class:'btn btn-secondary', onclick: "checkRemarks()" %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  function loadRemarksBasedOnGrade() {
+    var grades = [];
+    grades['A'] = "Excellent";
+    grades['B'] = "Very Good";
+    grades['C'] = "Good";
+    grades['D'] = "Average";
+    grades['E'] = "Below average";
+    grades['F'] = "Failed";
+
+    let grade = document.getElementById("student_grade");
+    if(grades[grade.value] !== undefined) {
+      document.getElementById("student_remarks").value = grades[grade.value];
+    } else {
+      document.getElementById("student_remarks").value = "";
+    }
+  }
+
+  function checkRemarks(){
+    const allRemarks = ["Excellent", "Very Good", "Good", "Average", "Below average", "Failed"];
+    if(!allRemarks.includes(document.getElementById("student_remarks").value)){
+      document.getElementById("student_remarks").value = "";
+      document.getElementById("student_grade").value = "";
+    } 
+  }
+</script>

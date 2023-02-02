@@ -1,0 +1,47 @@
+<h1>Student List</h1>
+
+<table class="table table-success table-striped table-bordered table-hover">
+  <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Grade</th>
+      <th>Remarks</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.id %></td>
+        <td><%= link_to student.name, student %></td>
+        <td><%= student.description %></td>
+        <td><%= student.grade  %></td>
+        <td><%= student.remarks %>
+          <script>
+            element = document.getElementsByTagName("td");
+            for(var i = element.length; i--;) {
+              var remarkItems = [];
+              remarkItems["Excellent"] = "green";
+              remarkItems["Very Good"] = "blue";
+              remarkItems["Good"] = "aqua";
+              remarkItems["Average"] = "yellow";
+              remarkItems["below average"] = "pink";
+              remarkItems["Failed"] = "red";
+
+              if(remarkItems[element[i].innerText.trim()] !== undefined) {
+                element[i].style.color = remarkItems[element[i].innerText.trim()];
+              }
+            }
+          </script>
+        </td>
+        <td><%= link_to "Edit", edit_student_path(student), class:"btn btn-info" %></td>
+        <td><%= button_to 'Delete', student, method: :delete, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to "Add a new student", new_student_path, class:"btn btn-secondary" %>

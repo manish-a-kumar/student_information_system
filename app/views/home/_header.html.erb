@@ -1,0 +1,44 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Navbar brand -->
+    <%= link_to 'Assignment 1', root_path, class:"navbar-brand" %>
+    <!-- Toggle button -->
+    <button class="navbar-toggler" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#navbarSupportedContent" 
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left links -->
+      <ul class="navbar-nav mr-auto">
+        <!--li class="nav-item">
+          <%= link_to 'Add student', new_student_path, class:"nav-link" %>
+        </li-->
+        <!li class="nav-item">
+          <%= link_to 'About', home_about_path, class:"nav-link" %>
+        </li>
+      </ul>
+      <!-- Left links -->
+
+      <!-- Search form -->
+      <%= form_tag "", url: students_path, class:"form-inline my-2 my-lg-0", role: "search", method: :get do %>
+          <div class="input-group">        
+            <%= text_field_tag :search, @search_term, class: "form-control mr-sm-2", placeholder: "Search" %>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="margin-left: 10px">Search</button>
+          </div>
+      <% end %>
+      <!-- Search form -->
+    </div>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
